@@ -1,0 +1,124 @@
+#PROJECT-2
+#PROJECT NAME:- TIMMER AND STOPWATCH
+#HTML CODE:-
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Timer and Stopwatch</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Timer and Stopwatch</h1>
+    <div class="timer">
+      <h2>Timer</h2>
+      <input type="number" id="timerInput" placeholder="Enter time in seconds">
+      <button onclick="startTimer()">Start</button>
+      <p id="timerDisplay"></p>
+    </div>
+    <div class="stopwatch">
+      <h2>Stopwatch</h2>
+      <button onclick="startStopwatch()">Start</button>
+      <button onclick="stopStopwatch()">Stop</button>
+      <button onclick="resetStopwatch()">Reset</button>
+      <p id="stopwatchDisplay">00:00:00</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+#CSS CODE:-
+body {
+    
+    background-size: cover;
+    background-color: black;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .container {
+    margin-top: 100px;
+  }
+  
+  h1 {
+    font-size: 36px;
+  }
+  
+  .timer, .stopwatch {
+    margin-bottom: 50px;
+  }
+  
+  input[type="number"] {
+    padding: 5px;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  #timerDisplay, #stopwatchDisplay {
+    font-size: 24px;
+  }
+
+#JAVASCRIPT:-
+function startTimer() {
+    var timerInput = document.getElementById("timerInput");
+    var timerDisplay = document.getElementById("timerDisplay");
+    var time = parseInt(timerInput.value);
+  
+    var timer = setInterval(function() {
+      if (time <= 0) {
+        clearInterval(timer);
+        timerDisplay.innerHTML = "Time's up!";
+      } else {
+        timerDisplay.innerHTML = time + "s";
+        time--;
+      }
+    }, 1000);
+  }
+  
+  function startStopwatch() {
+    var stopwatchDisplay = document.getElementById("stopwatchDisplay");
+    var stopwatchTime = 0;
+  
+    stopwatchInterval = setInterval(function() {
+      stopwatchTime++;
+      stopwatchDisplay.innerHTML = formatTime(stopwatchTime);
+    }, 1000);
+  }
+  
+  function stopStopwatch() {
+    clearInterval(stopwatchInterval);
+  }
+  
+  function resetStopwatch() {
+    var stopwatchDisplay = document.getElementById("stopwatchDisplay");
+    clearInterval(stopwatchInterval);
+    stopwatchDisplay.innerHTML = "00:00:00";
+  }
+  
+  function formatTime(time) {
+    var hours = Math.floor(time / 3600);
+    var minutes = Math.floor((time % 3600) / 60);
+    var seconds = time % 60;
+  
+    return (
+      ("0" + hours).slice(-2) +
+      ":" +
+      ("0" + minutes).slice(-2) +
+      ":" +
+      ("0" + seconds).slice(-2)
+    );
+  }
+  
